@@ -2,19 +2,131 @@
 <img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
 </div>
 
-# Run and deploy your AI Studio app
+# Persian Artist Showcase
 
-This contains everything you need to run your app locally.
+این مخزن یک وبسایت ساده برای معرفی هنرمندان فارسی‌زبان است و شامل همهٔ چیزهای لازم برای اجرا و دیپلوی اپ می‌باشد.
 
-View your app in AI Studio: https://ai.studio/apps/d77e3e3f-4a36-4c6d-af42-b08b3eb8b3fa
+قبل از هر تغییری
+----------------
+لطفاً ابتدا این پروژه را Fork کنید (بالا-راست: **Fork**) تا یک نسخهٔ شخصی از مخزن روی اکانت خود داشته باشید. همهٔ تغییرات و دیپلوی‌ها باید روی فورک شما انجام شوند.
 
-## Run Locally
+سریع: اجرای لوکال
+------------------
+پیش‌نیاز: Node.js
 
-**Prerequisites:**  Node.js
+1. وابستگی‌ها را نصب کنید:
 
+```bash
+npm install
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+2. متغیرهای محیطی را (در صورت نیاز) در فایل .env.local قرار دهید، سپس اپ را اجرا کنید:
+
+```bash
+npm run dev
+```
+
+دیپلوی بدون هاست: اتصال دامنهٔ دلخواه با Vercel + Cloudflare
+----------------------------------------------------------------
+این روش به شما اجازه می‌دهد وبسایت را بدون داشتن سرور اختصاصی یا هاست، فقط با استفاده از Vercel (برای میزبانی) و Cloudflare (برای مدیریت DNS و امکانات اضافی) به دامنهٔ دلخواه وصل کنید.
+
+مراحل گام‌به‌گام:
+
+1) Fork و کلون
+
+- از صفحهٔ مخزن روی "Fork" کلیک کنید و مخزن را به حساب GitHub خود منتقل کنید.
+- فورک را کلون کنید و یک شاخهٔ جدید بسازید:
+
+```bash
+git clone git@github.com:YOUR-USERNAME/persian-artist-showcase.git
+cd persian-artist-showcase
+git checkout -b my-deploy-branch
+```
+
+2) ساخت پروژه روی Vercel
+
+- به https://vercel.com وارد شوید و New Project -> Import Git Repository را انتخاب کنید.
+- فورک خود را از فهرست انتخاب کنید و Import را بزنید.
+- تنظیمات Build معمولاً خودکار است؛ اگر نیاز بود دستور build یا فریم‌ورک را تنظیم کنید.
+- Deploy را بزنید؛ پس از موفقیت یک دامنه‌ی *.vercel.app دریافت می‌کنید.
+
+3) اضافه کردن دامنه به Vercel
+
+- در داشبورد پروژهٔ Vercel: Settings -> Domains -> Add
+- دامنهٔ خود (مثلاً example.com) را اضافه کنید؛ Vercel به شما دستورالعمل تایید مالکیت می‌دهد.
+
+4) تنظیم DNS در Cloudflare
+
+- وارد حساب Cloudflare شوید و دامنه را اضافه یا انتخاب کنید.
+- به تب DNS بروید و رکوردهای زیر را اضافه کنید (مهم: Proxy را خاموش/DNS only کنید):
+  - A record: Name = @ , Target = 76.76.21.21 , Proxy status = DNS only
+  - CNAME record: Name = www , Target = cname.vercel-dns.com , Proxy status = DNS only
+
+نکته: در مرحلهٔ تایید دامنه در Vercel، Cloudflare نباید پروکسی orange cloud فعال داشته باشد. ابتدا DNS only باشد تا Vercel مالکیت را بررسی کند.
+
+5) برگشت به Vercel و Verify
+
+- پس از اضافه کردن رکوردها در Cloudflare، در صفحهٔ دامنهٔ Vercel گزینهٔ Verify یا Check DNS را بزنید.
+- وقتی تایید شد، Vercel به‌صورت خودکار گواهی HTTPS صادر می‌کند.
+
+6) (اختیاری) فعال‌سازی امکانات Cloudflare
+
+- بعد از پایان مراحل و تایید گواهی، می‌توانید برخی امکانات Cloudflare (مثل کش، WAF) را فعال کنید.
+- اگر با HTTPS یا عملکرد سایت مشکل داشتید، دوباره Cloudflare را روی DNS only قرار دهید تا عیب‌یابی ساده‌تر باشد.
+
+نکات مهم
+- برای apex/root domain (بدون www) از A record با IP: 76.76.21.21 استفاده کنید.
+- برای www از Target: cname.vercel-dns.com استفاده کنید.
+- در صورت نیاز به تنظیمات پیشرفتهٔ Header یا Redirect، از تنظیمات Vercel یا Page Rules در Cloudflare استفاده کنید.
+
+به‌روزرسانی محتوا با کمک AI
+----------------------------
+می‌توانید محتوای سایت (بیوگرافی هنرمندان، توضیحات، متادیتا) را با کمک مدل‌های زبانی یا ابزارهای AI سریع تولید یا به‌روزرسانی کنید. روش‌های پیشنهادی:
+
+1) ویرایش دستی با کمک ابزارهای AI
+
+- از GitHub Copilot یا ابزارهایی مثل ChatGPT استفاده کنید تا متن‌های فارسی (مثلاً بیوگرافی کوتاه) تولید کنید.
+- روند معمول:
+  - شاخهٔ جدید بسازید: `git checkout -b add-artist-xyz`
+  - فایل مربوط به هنرمند (مثلاً JSON یا Markdown) را ویرایش کنید.
+  - تغییرات را commit و push کنید و Pull Request ایجاد کنید.
+
+2) اسکریپت خودکار با استفاده از API (مثال کلی)
+
+- یک اسکریپت Node.js/Python بنویسید که ورودی (نام هنرمند یا CSV/Google Sheet) را گرفته و با استفاده از OpenAI/Gemini متن تولید کند.
+- خروجی را در ساختار پروژه (مثلاً یک فایل JSON) ذخیره کند، سپس با git commit + push شاخهٔ جدیدی بسازد.
+- نمونهٔ خلاصهٔ جریان:
+
+  - تولید متن با API
+  - بازبینی انسانی
+  - commit و push به مخزن
+  - ایجاد Pull Request یا ادغام خودکار
+
+- کلیدهای API را ایمن نگه دارید: در GitHub Secrets یا Vercel Environment Variables ذخیره کنید تا در CI یا در سرورها به‌صورت امن استفاده شوند.
+
+3) نمونهٔ Prompt فارسی کوتاه (برای تولید بیوگرافی):
+
+"یک پاراگراف ۳-۵ جمله‌ای به فارسی بنویس که خواننده را با سبک هنری، سال تولد و مهم‌ترین آثار هنرمند 'نام' آشنا کند. لحن رسمی و concise باشد."
+
+4) اتوماسیون با GitHub Actions
+
+- می‌توانید یک GitHub Action بنویسید که هر زمان فایلی آپدیت شد یا به‌صورت زمان‌بندی‌شده (cron) اجرا شود، داده‌ها را خوانده، از API هوش‌مصنوعی متن تولید کند و تغییرات را در شاخهٔ مخصوص ایجاد/commit کند.
+- دقت: قبل از merge کردن، همیشه بازبینی انسانی را اجباری کنید.
+
+مسیر سریع برای ارسال تغییرات
+---------------------------
+1. روی فورک خود کار کنید (نه روی ریپوی اصلی).
+2. شاخهٔ جدید بسازید: `git checkout -b feature/your-change`
+3. تغییرات را اعمال و commit کنید:
+
+```bash
+git add .
+git commit -m "Add/Update artist XYZ"
+git push origin feature/your-change
+```
+
+4. در GitHub از فورک خود یک Pull Request باز کنید.
+
+کمک لازم دارم؟
+----------------
+من README را به‌روزرسانی کردم و الان می‌تونم همین تغییرات را مستقیماً در مخزن شما commit کنم. اگر می‌خواهید شرح فنی بیشتری (مثلاً نمونهٔ GitHub Action یا نمونهٔ اسکریپت برای OpenAI) اضافه کنم، بگید تا آن‌را هم اضافه کنم.
