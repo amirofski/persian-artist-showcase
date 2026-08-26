@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@layer base {
+  @font-face {
+    font-family: 'IranNastaliq';
+    src: url('https://fontfa.com/wp-content/themes/fontfa/nastaliq/fonts/irannastaliq.ttf') format('truetype'),
+         url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-nastaliq-font@v1.0.0/dist/IranNastaliq.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-nastaliq-font@v1.0.0/dist/IranNastaliq.woff') format('woff'),
+         url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-nastaliq-font@v1.0.0/dist/IranNastaliq.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --bg-primary: #0c0c0c;
+    --bg-surface: #141414;
+    --text-primary: #e0dcd5;
+    --text-secondary: #9c9890;
+    --accent-gold: #c5a880;
+    --accent-gold-light: #e5cdab;
+    --accent-umber: #4a3a2a;
+    --ink-black: #080808;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+.font-vazir {
+  font-family: 'Vazirmatn', sans-serif;
+}
+
+.font-nastaliq {
+  font-family: 'IranNastaliq', 'Gulzar', 'Noto Nastaliq Urdu', 'Vazirmatn', Georgia, serif;
+  line-height: 2.3;
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', Georgia, serif;
+}
+
+.font-garamond {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+/* Atmospheric Noise / Film Grain */
+.film-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Ambient Deep Lighting */
+.ambient-glow-white {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.04) 0%, rgba(12, 12, 12, 0) 70%);
+}
+
+.ambient-glow-umber {
+  background: radial-gradient(circle at 50% 50%, rgba(74, 58, 42, 0.12) 0%, rgba(12, 12, 12, 0) 70%);
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #e0dcd5;
+}
+
+/* Smooth selection */
+::selection {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+/* Calligraphy stroke dash setup (SVG ClipPath + Stroke-Fill Animation) */
+.calligraphy-stroke {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.stroke-fill {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  transition: stroke-dashoffset 0.08s ease-out;
+}
+
+/* Perspective utilities for subtle 3D parallax */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* AI Smart Rotating Border Beam Animations */
+@keyframes ai-border-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-ai-beam {
+  animation: ai-border-spin 7s linear infinite;
+}
+
+.animate-ai-beam-fast {
+  animation: ai-border-spin 3.8s linear infinite;
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Persian Artist Showcase",
+  "description": "An interactive digital art exhibition and scroll-driven cinematic showcase blending Persian typography, Nastaliq calligraphy, particle dynamics, and contemporary Iranian art.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
